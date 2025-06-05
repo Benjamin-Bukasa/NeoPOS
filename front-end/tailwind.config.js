@@ -7,9 +7,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        inter: ["Golos Text","'Inter'", "sans-serif"],
+        golos: ["Golos Text",  "sans-serif"],
       },
       screens: {
+        xxs: "320px",
         xs: "480px",
         sm: "640px",
         md: "768px",

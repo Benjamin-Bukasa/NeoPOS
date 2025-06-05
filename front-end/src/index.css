@@ -2,3 +2,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.main-layout {
+  @apply xxs:flex xxs:flex-col xxs:items-center xxs:justify-center xs:flex xs:flex-col xs:items-center xs:justify-center sm:flex sm:flex-col sm:items-center sm:justify-center md:flex md:flex-row md:items-center md:justify-center
+}
