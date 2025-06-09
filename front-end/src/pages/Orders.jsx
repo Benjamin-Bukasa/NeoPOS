@@ -1,8 +1,11 @@
 import React from 'react'
+import ArticleItems from '../features/ArticleItems'
 
 function Orders() {
   return (
-    <div>Orders</div>
+    <div className='w-full flex justify-center'>
+      <ArticleItems/>
+    </div>
   )
 }
 

@@ -1,4 +1,4 @@
-import {LayoutDashboard,ShoppingBasket,ReceiptText,PackageOpen,Boxes,NotebookPen,ChartColumnBig,Container,Settings,LogOut} from "lucide-react"
+import {LayoutDashboard,ShoppingBasket,ShoppingCart, ReceiptText,PackageOpen,Boxes,NotebookPen,ChartColumnBig,Container,Settings,LogOut} from "lucide-react"
 
 export const sidebarService = [
     {
@@ -10,13 +10,13 @@ export const sidebarService = [
     {
         id: 2,
         name: "Commandes",
-        icon: ReceiptText,
+        icon: ShoppingCart,
         link:"orders"
     },
     {
         id: 1,
         name: "Ventes",
-        icon: ShoppingBasket,
+        icon: ReceiptText,
         link:"sales"
     },
     
