@@ -3,8 +3,9 @@ import {Store} from 'lucide-react';
 
 const Logo = () => {
   return (
-    <div className="bg-red-200 p-2 rounded-md flex items-center justify-center">
-        <Store className='w-8 h-8 text-red-600' />
+    <div className="bg-red-100 p-2 rounded-md flex items-center justify-start gap-4 text-red-600">
+        <Store className='w-5 h-5' />
+        <span className='font-bold text-lg'>Pamoja</span>
     </div>
   );
 }

@@ -3,52 +3,63 @@ import {LayoutDashboard,ShoppingBasket,ReceiptText,PackageOpen,Boxes,NotebookPen
 export const sidebarService = [
     {
         id: 1,
-        name: "Dashboard",
-        icon: LayoutDashboard
+        name: "Accueil",
+        icon: LayoutDashboard,
+        link:"dashboard"
     },
     {
         id: 2,
-        name: "Sales",
-        icon: ShoppingBasket
+        name: "Commandes",
+        icon: ReceiptText,
+        link:"orders"
     },
     {
-        id: 3,
-        name: "Orders",
-        icon: ReceiptText
+        id: 1,
+        name: "Ventes",
+        icon: ShoppingBasket,
+        link:"sales"
     },
+    
     {
         id: 4,
-        name:"stock",
-        icon: PackageOpen
+        name:"Stocks",
+        icon: PackageOpen,
+        link:"stocks"
     },
     {
         id: 5,
-        name: "inventory",
-        icon: Boxes
+        name: "Inventaire",
+        icon: Boxes,
+        link:"inventory"
     },
     {
         id: 6,
-        name: "Reports",
-        icon: NotebookPen
+        name: "Statistiques",
+        icon: ChartColumnBig,
+        link:"statistics"
     },
     {
         id: 7,
-        name: "Statistics",
-        icon: ChartColumnBig
+        name: "Fournisseurs",
+        icon: Container,
+        link:"suppliers"
     },
-    {
+     {
         id: 8,
-        name: "Suppliers",
-        icon: Container
+        name: "Rapports",
+        icon: NotebookPen,
+        link:"reports"
     },
     {
         id: 9,
-        name: "Settings",
-        icon: Settings
+        name: "Reglages",
+        icon: Settings,
+        link:"settings"
     },
     {
         id: 10,
-        name: "Logout",
-        icon: LogOut
+        name: "Déconnexion",
+        icon: LogOut,
+        link:"logout"
     }
 ]
