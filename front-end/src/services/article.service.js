@@ -2,6 +2,7 @@ export const saleItems = [
     {
         id:"1",
         articleName:"T-shirt",
+        articleImage:"images/tshirt.jpeg",
         articlePrice: 20,
         articleCurrency: "€",
         articleQuantityStock: 40,
@@ -22,6 +23,7 @@ export const saleItems = [
     {
         id:"2",
         articleName:"Jeans",
+        articleImage:"images/jeans.jpeg",
         articlePrice: 40,
         articleCurrency: "€",
         articleQuantityStock: 30,
@@ -42,6 +44,7 @@ export const saleItems = [
     {
         id:"3",
         articleName:"Sneakers",
+        articleImage:"images/sneakers.jpeg",
         articlePrice: 60,
         articleCurrency: "€",
         articleQuantityStock: 20,
@@ -62,6 +65,7 @@ export const saleItems = [
     {
         id:"4",
         articleName:"Jacket",
+        articleImage:"images/jacket.jpeg",
         articlePrice: 80,
         articleCurrency: "€",
         articleQuantityStock: 15,
@@ -82,6 +86,7 @@ export const saleItems = [
     {
         id:"5",
         articleName:"Hat",
+        articleImage:null,
         articlePrice: 15,
         articleCurrency: "€",
         articleQuantityStock: 50,
@@ -101,7 +106,8 @@ export const saleItems = [
     },
     {
         id:"6",
-        articleName:"Sunglasses",
+        articleName:"sunglasses",
+        articleImage:null,
         articlePrice: 25,
         articleCurrency: "€",
         articleQuantityStock: 35,
@@ -122,6 +128,7 @@ export const saleItems = [
     {
         id:"7",
         articleName:"Backpack",
+        articleImage:null,
         articlePrice: 45,
         articleCurrency: "€",
         articleQuantityStock: 25,
@@ -142,6 +149,7 @@ export const saleItems = [
     {
         id:"8",
         articleName:"Watch",
+        articleImage:null,
         articlePrice: 120,
         articleCurrency: "€",
         articleQuantityStock: 10,
@@ -162,6 +170,7 @@ export const saleItems = [
     {
         id:"9",
         articleName:"Belt",
+        articleImage:null,
         articlePrice: 30,
         articleCurrency: "€",
         articleQuantityStock: 45,
@@ -182,6 +191,7 @@ export const saleItems = [
     {
         id:"10",
         articleName:"Scarf",
+        articleImage:null,
         articlePrice: 20,
         articleCurrency: "€",
         articleQuantityStock: 60,
@@ -202,6 +212,7 @@ export const saleItems = [
     {
         id:"11",
         articleName:"Gloves",
+        articleImage:null,
         articlePrice: 18,
         articleCurrency: "€",
         articleQuantityStock: 55,
@@ -222,6 +233,7 @@ export const saleItems = [
     {
         id:"12",
         articleName:"Sweatshirt",
+        articleImage:null,
         articlePrice: 50,
         articleCurrency: "€",
         articleQuantityStock: 20,
@@ -242,6 +254,7 @@ export const saleItems = [
     {
         id:"13",
         articleName:"Shorts",
+        articleImage:null,
         articlePrice: 30,
         articleCurrency: "€",
         articleQuantityStock: 25,
@@ -262,6 +275,7 @@ export const saleItems = [
     {
         id:"14",
         articleName:"Sandals",
+        articleImage:null,
         articlePrice: 35,
         articleCurrency: "€",
         articleQuantityStock: 30,
@@ -282,6 +296,7 @@ export const saleItems = [
     {
         id:"15",
         articleName:"Cap",
+        articleImage:null,
         articlePrice: 12,
         articleCurrency: "€",
         articleQuantityStock: 70,
@@ -302,6 +317,7 @@ export const saleItems = [
     {
         id:"16",
         articleName:"Polo Shirt",
+        articleImage:null,
         articlePrice: 28,
         articleCurrency: "€",
         articleQuantityStock: 40,
@@ -322,6 +338,7 @@ export const saleItems = [
     {
         id:"17",
         articleName:"Blazer",
+        articleImage:null,
         articlePrice: 100,
         articleCurrency: "€",
         articleQuantityStock: 12,
@@ -342,6 +359,7 @@ export const saleItems = [
     {
         id:"18",
         articleName:"Boots",
+        articleImage:null,
         articlePrice: 90,
         articleCurrency: "€",
         articleQuantityStock: 18,
@@ -362,6 +380,7 @@ export const saleItems = [
     {
         id:"19",
         articleName:"Tote Bag",
+        articleImage:null,
         articlePrice: 22,
         articleCurrency: "€",
         articleQuantityStock: 50,
@@ -382,6 +401,7 @@ export const saleItems = [
     {
         id:"20",
         articleName:"Umbrella",
+        articleImage:null,
         articlePrice: 15,
         articleCurrency: "€",
         articleQuantityStock: 60,

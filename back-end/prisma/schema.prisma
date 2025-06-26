@@ -1,0 +1,237 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  SALER
+  MANAGER
+}
+
+enum ArticleType {
+  SINGLE
+  PACK
+}
+
+enum MovementType {
+  ENTRY
+  EXIT
+}
+
+enum SaleStatus {
+  NORMAL
+  LOST
+  RETURNED
+  GIFT
+  DISCOUNTED
+}
+
+enum TicketType {
+  SALE
+  CANCELLED
+  RETURNED
+  GIFT
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String    @unique
+  password  String
+  role      UserRole  @default(SALER)
+  logs      Log[]
+  sales     Sale[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Category {
+  id          Int          @id @default(autoincrement())
+  name        String
+  subCategory SubCategory[]
+  createdAt   DateTime     @default(now())
+}
+
+model SubCategory {
+  id          Int       @id @default(autoincrement())
+  name        String
+  categoryId  Int
+  category    Category  @relation(fields: [categoryId], references: [id])
+  articles    Article[]
+}
+
+model Supplier {
+  id        Int      @id @default(autoincrement())
+  name      String
+  contact   String?
+  articles  Article[]
+  createdAt DateTime @default(now())
+}
+
+model Article {
+  id              Int               @id @default(autoincrement())
+  name            String            @unique
+  image           String?
+  color           String?
+  size            String?
+  brand           String?
+  model           String?
+  description     String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  updatedBy       Int?
+  type            ArticleType
+  barcode         String?            
+  purchasePrice   Float
+  sellingPrice    Float
+  supplierId      Int?
+  supplier        Supplier?          @relation(fields: [supplierId], references: [id])
+  subCategoryId   Int
+  subCategory     SubCategory        @relation(fields: [subCategoryId], references: [id])
+  packComponents  ArticleComponent[] @relation("PackComponent")
+  componentOf     ArticleComponent[] @relation("Component")
+  saleItems       SaleItem[]
+  stockMovements  StockMovement[]
+  stockTransfers  StockTransfer[]
+  inventoryItems  InventoryItem[]
+  stocks          Stock[]
+}
+
+
+model ArticleComponent {
+  id         Int     @id @default(autoincrement())
+  packId     Int
+  articleId  Int
+  quantity   Int
+
+  pack       Article @relation("PackComponent", fields: [packId], references: [id])
+  article    Article @relation("Component", fields: [articleId], references: [id])
+}
+
+model StorageZone {
+  id             Int             @id @default(autoincrement())
+  name           String
+  location       String?
+  inventory      Inventory[]
+  transfersFrom  StockTransfer[] @relation("FromZone")
+  transfersTo    StockTransfer[] @relation("ToZone")
+  movements      StockMovement[]
+  stocks         Stock[]
+}
+
+model Stock {
+  id        Int          @id @default(autoincrement())
+  articleId Int
+  zoneId    Int
+  quantity  Int          @default(0)
+
+  article   Article      @relation(fields: [articleId], references: [id])
+  zone      StorageZone  @relation(fields: [zoneId], references: [id])
+
+  @@unique([articleId, zoneId])
+}
+
+model StockTransfer {
+  id           Int         @id @default(autoincrement())
+  fromZoneId   Int
+  toZoneId     Int
+  articleId    Int
+  quantity     Int
+  date         DateTime    @default(now())
+
+  fromZone     StorageZone @relation("FromZone", fields: [fromZoneId], references: [id])
+  toZone       StorageZone @relation("ToZone", fields: [toZoneId], references: [id])
+  article      Article     @relation(fields: [articleId], references: [id])
+}
+
+model StockMovement {
+  id          Int         @id @default(autoincrement())
+  articleId   Int
+  type        MovementType
+  quantity    Int
+  reason      String?
+  zoneId      Int
+  date        DateTime    @default(now())
+
+  article     Article     @relation(fields: [articleId], references: [id])
+  zone        StorageZone @relation(fields: [zoneId], references: [id])
+}
+
+model Inventory {
+  id         Int              @id @default(autoincrement())
+  date       DateTime         @default(now())
+  zoneId     Int
+  zone       StorageZone      @relation(fields: [zoneId], references: [id])
+  entries    InventoryItem[]
+}
+
+model InventoryItem {
+  id          Int        @id @default(autoincrement())
+  inventoryId Int
+  articleId   Int
+  counted     Int
+
+  inventory   Inventory  @relation(fields: [inventoryId], references: [id])
+  article     Article    @relation(fields: [articleId], references: [id])
+}
+
+model Parameter {
+  id                    Int     @id @default(autoincrement())
+  tva                   Float   @default(0)
+  ticketDiscountRate    Float   @default(0)
+  articleDiscountRate   Float   @default(0)
+  createdAt             DateTime @default(now())
+}
+
+model Sale {
+  id             Int         @id @default(autoincrement())
+  sellerId       Int
+  ticketNo       String
+  status         SaleStatus
+  date           DateTime    @default(now())
+  zone           String
+  items          SaleItem[]
+  user           User        @relation(fields: [sellerId], references: [id])
+  printedTickets Ticket[]
+}
+
+model SaleItem {
+  id         Int      @id @default(autoincrement())
+  saleId     Int
+  articleId  Int
+  quantity   Int
+  unitPrice  Float
+  discount   Float
+
+  sale       Sale     @relation(fields: [saleId], references: [id])
+  article    Article  @relation(fields: [articleId], references: [id])
+}
+
+model Ticket {
+  id        Int       @id @default(autoincrement())
+  saleId    Int
+  type      TicketType
+  printDate DateTime  @default(now())
+
+  sale      Sale      @relation(fields: [saleId], references: [id])
+}
+
+model Log {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  entity      String
+  action      String
+  description String?
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id])
+}

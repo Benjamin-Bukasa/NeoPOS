@@ -1,8 +1,11 @@
 import React from 'react'
+import SalesTable from '../components/SalesTable'
 
 function Sales() {
   return (
-    <div>Sales</div>
+    <>
+      <SalesTable />
+    </>
   )
 }
 

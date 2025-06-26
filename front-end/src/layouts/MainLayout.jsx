@@ -11,7 +11,7 @@ function MainLayout (){
     return(
         <div className="main-layout md:flex md:h-screen md:overflow-hidden">
             <Sidebar/>
-            <main className="md:flex-1 md:overflow-y-auto bg-gray-100/50 h-full">
+            <main className="md:flex-1 md:overflow-y-auto scrollbar-hide bg-gray-100/50 h-full">
                 <Navbar/>
                 <Outlet/>
             </main>
