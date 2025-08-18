@@ -1,9 +1,9 @@
-import React from 'react'
+
+import React from 'react';
+import InventoryLayout from './InventoryLayout';
 
 function Inventory() {
-  return (
-    <div>Inventory</div>
-  )
+  return <InventoryLayout />;
 }
 
-export default Inventory
+export default Inventory;

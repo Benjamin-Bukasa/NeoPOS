@@ -20,6 +20,7 @@ const FilterFields = ({
           className="border px-3 py-2 rounded-md outline-none"
         >
           <option value="">Toutes</option>
+          import { getCurrencySymbol } from '../utils/currency';
           <option value="clothing">Clothing</option>
           <option value="footwear">Footwear</option>
           <option value="outerwear">Outerwear</option>
@@ -30,7 +31,17 @@ const FilterFields = ({
 
       {/* Prix min */}
       <div className="flex flex-col">
-        <label className="text-sm">Prix min (€)</label>
+import { getCurrencySymbol } from '../utils/currency';
+
+const FilterFields = ({
+  category, setCategory,
+  minPrice, setMinPrice,
+  maxPrice, setMaxPrice,
+  color, setColor,
+  barcodeInput, setBarcodeInput,
+  handleBarcodeScan
+}) => {
+  const currency = getCurrencySymbol();
         <input
           type="number"
           value={minPrice}
@@ -42,7 +53,7 @@ const FilterFields = ({
 
       {/* Prix max */}
       <div className="flex flex-col">
-        <label className="text-sm">Prix max (€)</label>
+  <label className="text-sm">Prix max ({currency})</label>
         <input
           type="number"
           value={maxPrice}

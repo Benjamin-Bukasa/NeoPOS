@@ -94,7 +94,7 @@ const useArticleFilter = () => {
     totalPages,
     itemsPerPage,
     addToCart,
-    error, // ➕ maintenant retourné
+    error,
   };
 };
 

@@ -10,6 +10,8 @@ import Categories from "../pages/Categories";
 import Orders from "../pages/Orders";
 import Stock from "../pages/Stocks";
 import Inventory from "../pages/Inventory";
+import InventoryFaire from "../pages/InventoryFaire";
+import InventoryListe from "../pages/InventoryListe";
 import Statistics from "../pages/Statistics";
 import Suppliers from "../pages/Suppliers";
 import Reports from "../pages/Reports";
@@ -18,6 +20,10 @@ import Profile from "../pages/Profile";
 import Logout from "../pages/Logout";
 import ProtectedRoute from "./ProtectedRoutes";
 import Stocks from "../pages/Stocks";
+import SalesReport from '../pages/reports/SalesReport';
+import ZoneTransferReport from '../pages/reports/ZoneTransferReport';
+import InventoryReport from '../pages/reports/InventoryReport';
+import CrudLogReport from '../pages/reports/CrudLogReport';
 // import RedirectHome from "./RedirectHome";
 
 
@@ -65,8 +71,22 @@ import Stocks from "../pages/Stocks";
                     element: <Stocks/>
                 },
                 {
-                    path:"inventory",
-                    element: <Inventory/>
+                    path: "inventory",
+                    element: <Inventory />,
+                    children: [
+                        {
+                            path: "faire",
+                            element: <InventoryFaire />
+                        },
+                        {
+                            path: "liste",
+                            element: <InventoryListe />
+                        },
+                        {
+                            index: true,
+                            element: <InventoryFaire />
+                        }
+                    ]
                 },
                 {
                     path:"statistics",
@@ -78,7 +98,13 @@ import Stocks from "../pages/Stocks";
                 },
                 {
                     path: "/reports",
-                    element: <Reports/>
+                    element: <Reports/>,
+                    children: [
+                        { path: "sales", element: <SalesReport /> },
+                        { path: "zone-transfer", element: <ZoneTransferReport /> },
+                        { path: "inventory", element: <InventoryReport /> },
+                        { path: "crud-log", element: <CrudLogReport /> },
+                    ]
                 },
                 {
                     path: "/settings",

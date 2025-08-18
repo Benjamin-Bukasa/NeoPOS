@@ -45,38 +45,74 @@ const getArticleById = async (req, res) => {
 };
 
 const createArticle = async (req, res) => {
-  const {
-    name, type, barcode, purchasePrice, sellingPrice,
-    supplierId, subCategoryId, image, description, updatedBy
-  } = req.body;
-
   try {
-    const subCategory = await prisma.subCategory.findUnique({ where: { id: subCategoryId } });
+    // Pour multipart/form-data, req.body contient tout sauf les fichiers, req.file(s) contient les fichiers
+    if (!req.body) {
+      return res.status(400).json({ error: 'Aucune donnée reçue (body manquant)' });
+    }
+    let data = req.body;
+    // Conversion des types (car FormData envoie tout en string)
+    data.purchasePrice = data.purchasePrice ? parseFloat(data.purchasePrice) : null;
+    data.sellingPrice = data.sellingPrice ? parseFloat(data.sellingPrice) : null;
+    data.supplierId = data.supplierId ? parseInt(data.supplierId) : undefined;
+    data.subCategoryId = data.subCategoryId ? parseInt(data.subCategoryId) : null;
+
+    // Si un fichier image est uploadé, on enregistre le chemin relatif dans la BDD
+    if (req.file) {
+      // On stocke le chemin relatif pour l'accès depuis le front-end
+      data.image = `/uploads/${req.file.filename}`;
+    }
+
+    // Vérification sous-catégorie obligatoire
+    if (!data.subCategoryId) return res.status(400).json({ error: 'Sous-catégorie obligatoire' });
+    const subCategory = await prisma.subCategory.findUnique({ where: { id: data.subCategoryId } });
     if (!subCategory) return res.status(400).json({ error: 'Sous-catégorie introuvable' });
 
-    const supplierConnect = supplierId
-      ? { connect: { id: supplierId } }
-      : undefined;
+    // Préparation de la donnée pour Prisma
+    const prismaData = {
+      name: data.name,
+      type: data.type,
+      barcode: data.barcode || undefined,
+      purchasePrice: data.purchasePrice,
+      sellingPrice: data.sellingPrice,
+      subCategory: { connect: { id: data.subCategoryId } },
+      supplier: data.supplierId ? { connect: { id: data.supplierId } } : undefined,
+      image: data.image || undefined,
+      color: data.color || undefined,
+      size: data.size || undefined,
+      brand: data.brand || undefined,
+      model: data.model || undefined,
+      description: data.description || undefined,
+      updatedBy: data.updatedBy || undefined
+    };
 
-    const article = await prisma.article.create({
-      data: {
-        name, type, barcode, purchasePrice, sellingPrice,
-        subCategory: { connect: { id: subCategoryId } },
-        supplier: supplierConnect,
-        image, description, updatedBy
-      }
-    });
-
+    const article = await prisma.article.create({ data: prismaData });
     res.status(201).json(article);
   } catch (error) {
     console.error('Erreur création article :', error);
-    res.status(500).json({ error: 'Erreur serveur' });
+    res.status(500).json({ error: error.message || 'Erreur serveur' });
   }
 };
 
 const updateArticle = async (req, res) => {
   const { id } = req.params;
-  const data = req.body;
+  let data = req.body;
+
+  // Conversion des types (FormData envoie tout en string)
+  data.purchasePrice = data.purchasePrice ? parseFloat(data.purchasePrice) : null;
+  data.sellingPrice = data.sellingPrice ? parseFloat(data.sellingPrice) : null;
+  data.supplierId = data.supplierId ? parseInt(data.supplierId) : undefined;
+  data.subCategoryId = data.subCategoryId ? parseInt(data.subCategoryId) : null;
+
+  // Si une nouvelle image est uploadée, on met à jour le champ image
+  if (req.file) {
+    data.image = `/uploads/${req.file.filename}`;
+  }
+
+  // Supprimer les champs non modifiables par Prisma
+  delete data.id;
+  delete data.createdAt;
+  delete data.updatedAt;
 
   try {
     const article = await prisma.article.update({
@@ -86,7 +122,7 @@ const updateArticle = async (req, res) => {
     res.status(200).json(article);
   } catch (error) {
     console.error('Erreur updateArticle :', error);
-    res.status(500).json({ error: 'Erreur serveur' });
+    res.status(500).json({ error: error.message || 'Erreur serveur' });
   }
 };
 

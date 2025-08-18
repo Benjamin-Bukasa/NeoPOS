@@ -4,7 +4,9 @@ import SalesTable from '../components/SalesTable'
 function Sales() {
   return (
     <>
-      <SalesTable />
+    <div className="px-6 py-2 font-golos scrollbar-hide">
+        <SalesTable />
+    </div>
     </>
   )
 }

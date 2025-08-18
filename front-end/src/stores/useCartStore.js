@@ -1,3 +1,4 @@
+// cartStore.js
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -15,8 +16,7 @@ export const useCartStore = create(
           alert("Stock épuisé pour cet article !");
           return;
         }
-        // Si l'article est déjà dans le panier, on augmente la quantité
-        // Sinon, on l'ajoute avec une quantité de 1
+
         if (currentInCart) {
           set({
             cart: get().cart.map(item =>
@@ -56,6 +56,22 @@ export const useCartStore = create(
       clearCart: () => {
         set({ cart: [] });
       },
+
+      substractQuantity: (id) => {
+        const currentInCart = get().cart.find(item => item.id === id);
+        if (currentInCart && currentInCart.quantity > 1) {
+          set({
+            cart: get().cart.map(item =>
+              item.id === id
+                ? { ...item, quantity: item.quantity - 1 }
+                : item
+            )
+          });
+        } else {
+          get().removeFromCart(id);
+        }
+      },
+
     }),
     {
       name: 'cart-storage', // Stocké dans localStorage

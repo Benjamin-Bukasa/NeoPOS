@@ -1,3 +1,20 @@
+model Shop {
+  id     Int    @id @default(autoincrement())
+  name   String
+  users  User[]
+  subscription Subscription?
+  // Ajoute d'autres champs si besoin (adresse, etc.)
+}
+model Subscription {
+  id           Int      @id @default(autoincrement())
+  shop         Shop     @relation(fields: [shopId], references: [id])
+  shopId       Int      @unique
+  startDate    DateTime
+  endDate      DateTime
+  status       String   // e.g. 'ACTIVE', 'INACTIVE', 'EXPIRED'
+  userLimit    Int?
+  createdAt    DateTime @default(now())
+}
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -50,8 +67,11 @@ model User {
   role      UserRole  @default(SALER)
   logs      Log[]
   sales     Sale[]
+  inventories Inventory[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  shopId   Int?
+  shop     Shop?   @relation(fields: [shopId], references: [id])
 }
 
 model Category {
@@ -73,6 +93,7 @@ model Supplier {
   id        Int      @id @default(autoincrement())
   name      String
   contact   String?
+  address   String?
   articles  Article[]
   createdAt DateTime @default(now())
 }
@@ -171,6 +192,8 @@ model Inventory {
   date       DateTime         @default(now())
   zoneId     Int
   zone       StorageZone      @relation(fields: [zoneId], references: [id])
+  userId     Int?
+  user       User?            @relation(fields: [userId], references: [id])
   entries    InventoryItem[]
 }
 

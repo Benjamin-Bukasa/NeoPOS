@@ -1,8 +1,11 @@
 import React from 'react'
+import SaleStatistics from '../components/SaleStatistics'
 
 function Statistics() {
   return (
-    <div>Statistics</div>
+    <div>
+      <SaleStatistics/>
+    </div>
   )
 }
 

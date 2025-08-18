@@ -1,10 +1,41 @@
+// 📝 Mise à jour d'un item de vente (quantité, prix, statut)
+const updateSaleItem = async (req, res) => {
+  const { id } = req.params;
+  const { quantitySold, price, status } = req.body;
+  try {
+    // Met à jour l'item de vente
+    const updatedItem = await prisma.saleItem.update({
+      where: { id: parseInt(id) },
+      data: {
+        quantity: quantitySold,
+        unitPrice: price,
+      },
+    });
+    // Met à jour le statut de la vente si besoin
+    if (status) {
+      await prisma.sale.update({
+        where: { id: updatedItem.saleId },
+        data: { status },
+      });
+    }
+    res.status(200).json({ message: 'Vente modifiée', item: updatedItem });
+  } catch (error) {
+    console.error('Erreur updateSaleItem :', error);
+    res.status(500).json({ error: 'Erreur lors de la modification de la vente' });
+  }
+};
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 // 📦 Récupération des ventes
 const getAllSales = async (req, res) => {
   try {
+    const where = {};
+    if (req.user?.role === 'SALER') {
+      where.user = { id: req.user.id };
+    }
     const sales = await prisma.sale.findMany({
+      where,
       orderBy: { date: 'desc' },
       include: {
         user: true,
@@ -24,6 +55,7 @@ const getAllSales = async (req, res) => {
 
         return {
           id: sale.id,
+          saleItemId: item.id, // Ajouté pour édition précise
           ticketNo: sale.ticketNo,
           date: sale.date,
           sellerName: sale.user?.name || 'N/A',
@@ -43,10 +75,14 @@ const getAllSales = async (req, res) => {
   }
 };
 
-// ➕ Enregistrement d'une vente
+// Enregistrement d'une vente
 const createSale = async (req, res) => {
-  const defaultSellerId = 1;
   const { date, items, zone = 'Zone A', status = 'NORMAL' } = req.body;
+  const sellerId = req.user?.id;
+
+  if (!sellerId) {
+    return res.status(403).json({ error: 'Utilisateur non autorisé à vendre' });
+  }
 
   try {
     const saleDate = new Date(date);
@@ -72,7 +108,7 @@ const createSale = async (req, res) => {
         date: saleDate,
         status,
         zone,
-        sellerId: defaultSellerId,
+        sellerId,
         items: {
           create: items.map(i => ({
             articleId: i.id,
@@ -144,16 +180,63 @@ const getSaleById = async (req, res) => {
 };
 
 // 🗑 Suppression
+// 🗑 Suppression d'une vente avec suppression de ses items
 const deleteSale = async (req, res) => {
   const { id } = req.params;
+
   try {
-    await prisma.sale.delete({ where: { id: parseInt(id) } });
-    res.status(200).json({ message: 'Vente supprimée' });
+    const saleId = parseInt(id);
+
+    // Vérifie d'abord si la vente existe
+    const existingSale = await prisma.sale.findUnique({
+      where: { id: saleId },
+      include: {
+        items: true,
+      },
+    });
+
+    if (!existingSale) {
+      return res.status(404).json({ error: 'Vente non trouvée' });
+    }
+
+    // Restaure le stock avant de supprimer les items
+    for (const item of existingSale.items) {
+      const stockRecord = await prisma.stock.findFirst({
+        where: { articleId: item.articleId },
+      });
+
+      if (stockRecord) {
+        await prisma.stock.update({
+          where: { id: stockRecord.id },
+          data: {
+            quantity: stockRecord.quantity + item.quantity,
+          },
+        });
+      }
+    }
+
+    // Supprime les items liés à la vente
+    await prisma.saleItem.deleteMany({
+      where: { saleId },
+    });
+
+    // Supprime le ticket lié
+    await prisma.ticket.deleteMany({
+      where: { saleId },
+    });
+
+    // Supprime la vente elle-même
+    await prisma.sale.delete({
+      where: { id: saleId },
+    });
+
+    res.status(200).json({ message: 'Vente supprimée avec succès' });
   } catch (error) {
     console.error('Erreur deleteSale :', error);
-    res.status(500).json({ error: 'Erreur serveur' });
+    res.status(500).json({ error: 'Erreur serveur lors de la suppression' });
   }
 };
+
 
 // ✏️ Mise à jour
 const updateSale = async (req, res) => {
@@ -188,5 +271,6 @@ module.exports = {
   createSale,
   getSaleById,
   deleteSale,
-  updateSale
+  updateSale,
+  updateSaleItem
 };
