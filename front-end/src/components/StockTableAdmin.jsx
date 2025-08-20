@@ -30,6 +30,7 @@ const StockTableAdmin = () => {
 
   useEffect(() => {
     fetchStocks();
+    // Récupération des articles et zones pour la table
   }, []);
 
   const openMovementModal = (stock) => {

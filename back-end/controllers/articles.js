@@ -199,7 +199,7 @@ const updateArticle = async (req, res) => {
       }
     }
 
-    res.status(200).json(article);
+    res.status(200).json(article);//
   } catch (error) {
     console.error('Erreur updateArticle :', error);
     res.status(500).json({ error: error.message || 'Erreur serveur' });
