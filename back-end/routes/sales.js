@@ -3,11 +3,19 @@ const router = express.Router();
 
 const { authenticateUser } = require('../middlwares/auth');
 const requireRole = require('../middlwares/role');
-const { getAllSales, createSale, getSaleById, updateSale, deleteSale, updateSaleItem } = require('../controllers/sales');
+const { 
+  getAllSales, 
+  createSale, 
+  getSaleById, 
+  updateSale, 
+  deleteSale, 
+  updateSaleItem 
+} = require('../controllers/sales');
 const { getSalesReport } = require('../controllers/salesReport');
 
 // Rapport de ventes détaillé (tous rôles)
 router.get('/report', authenticateUser, requireRole('ADMIN', 'MANAGER', 'SALER'), getSalesReport);
+
 // ADMIN et MANAGER peuvent modifier un item de vente
 router.put('/updateSaleItem/:id', authenticateUser, requireRole('ADMIN', 'MANAGER'), updateSaleItem);
 

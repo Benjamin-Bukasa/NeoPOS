@@ -33,7 +33,7 @@ server.use('/pamoja/api/shops', shopRoutes);
 server.use('/pamoja/api/stock-alerts', stockAlertRoutes);
 server.use('/pamoja/api/auth', authRoutes);
 server.use('/pamoja/api/articles', articlesRouter);
-server.use('/pamoja/api/saleArticles', salesRouter);
+server.use('/pamoja/api/saleArticles', salesRouter); // ✅ inclut aussi /report
 server.use('/pamoja/api/salesStats', salesStats);
 server.use('/pamoja/api/stocks', stockRoutes);
 server.use('/pamoja/api/inventories', inventoryRoutes);
@@ -47,5 +47,5 @@ server.use('/pamoja/api/logs', logRoutes);
 
 // Lancement du serveur
 server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`🚀 Server is running on port ${PORT}`);
 });

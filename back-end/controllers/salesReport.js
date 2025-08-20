@@ -3,7 +3,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 // GET /pamoja/api/saleArticles/report?dateFrom=YYYY-MM-DD&dateTo=YYYY-MM-DD&sellerId=...&category=...
-async function getSalesReport(req, res) {
+const getSalesReport = async (req, res) => {
   try {
     const { dateFrom, dateTo, sellerId, category } = req.query;
     const where = {};
@@ -52,7 +52,7 @@ async function getSalesReport(req, res) {
       });
     }
 
-    function getStockAtDate(articleId, date) {
+    const getStockAtDate = (articleId, date) => {
       if (!articleId || !date) return null;
       let stock = 0;
 
@@ -69,7 +69,7 @@ async function getSalesReport(req, res) {
       });
 
       return stock;
-    }
+    };
 
     const param = await prisma.parameter.findFirst();
     const tva = param?.tva || 0;
@@ -107,6 +107,8 @@ async function getSalesReport(req, res) {
     console.error('❌ Erreur getSalesReport:', error);
     res.status(500).json([]);
   }
-}
+};
 
-module.exports = { getSalesReport };
+module.exports = {
+  getSalesReport
+};
