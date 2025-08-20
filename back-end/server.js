@@ -18,6 +18,7 @@ const parameterRoutes = require('./routes/parameter');
 const supplierRoutes = require('./routes/supplier');
 const categoryRoutes = require('./routes/category');
 const subCategoryRoutes = require('./routes/subCategory');
+const zoneRoutes = require('./routes/zoneRoutes');
 const stockMovementsRoutes = require('./routes/stockMovements');
 const logRoutes = require('./routes/log');
 
@@ -40,6 +41,7 @@ server.use('/pamoja/api/parameters', parameterRoutes);
 server.use('/pamoja/api/suppliers', supplierRoutes);
 server.use('/pamoja/api/categories', categoryRoutes);
 server.use('/pamoja/api/subcategories', subCategoryRoutes);
+server.use('/pamoja/api/zones', zoneRoutes);
 server.use('/pamoja/api/stockMovements', stockMovementsRoutes);
 server.use('/pamoja/api/logs', logRoutes);
 
