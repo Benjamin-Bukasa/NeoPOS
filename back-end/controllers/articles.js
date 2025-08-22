@@ -1,6 +1,10 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+const fs = require("fs");
+const path = require("path");
+const csv = require("csv-parser");
+
 // 🔁 Récupérer tous les articles avec stock total
 const getAllArticles = async (req, res) => {
   try {
@@ -125,6 +129,80 @@ const createArticle = async (req, res) => {
   }
 };
 
+const importManyArticles = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: "Aucun fichier fourni" });
+    }
+
+    const filePath = path.join(__dirname, "../..", req.file.path);
+    const articles = [];
+
+    fs.createReadStream(filePath)
+      .pipe(csv({ separator: ";" })) // ✅ CSV séparé par ";"
+      .on("data", (row) => {
+        if (!row.name || !row.purchasePrice || !row.sellingPrice || !row.subCategoryId || !row.zoneId) {
+          return; // ignore ligne invalide
+        }
+
+        if (!row.quantity || row.quantity.trim() === "") {
+          row.quantity = 0;
+        }
+
+        articles.push(row);
+      })
+      .on("end", async () => {
+        let inserted = 0;
+
+        for (let art of articles) {
+          // Vérifier si article existe déjà par nom
+          const exists = await prisma.article.findUnique({
+            where: { name: art.name },
+          });
+          if (exists) continue;
+
+          // 1️⃣ Création de l’article
+          const article = await prisma.article.create({
+            data: {
+              name: art.name,
+              color: art.color || "",
+              size: art.size || "",
+              brand: art.brand || "",
+              model: art.model || "",
+              description: art.description || "",
+              type: art.type || "SINGLE",
+              barcode: art.barcode || "",
+              purchasePrice: parseFloat(art.purchasePrice),
+              sellingPrice: parseFloat(art.sellingPrice),
+              supplierId: art.supplierId ? parseInt(art.supplierId) : null,
+              subCategoryId: parseInt(art.subCategoryId),
+              image: art.image || null,
+            },
+          });
+
+          // 2️⃣ Création du stock associé
+          await prisma.stock.create({
+            data: {
+              articleId: article.id,
+              zoneId: parseInt(art.zoneId),
+              quantity: parseInt(art.quantity),
+            },
+          });
+
+          inserted++;
+        }
+
+        fs.unlinkSync(filePath); // ✅ supprime fichier temporaire
+        res.json({ message: `${inserted} articles importés avec succès` });
+      });
+  } catch (err) {
+    console.error("Erreur importManyArticles :", err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
+
 // ✏️ Mettre à jour un article (+ stock si zoneId & quantity)
 const updateArticle = async (req, res) => {
   const { id } = req.params;
@@ -218,10 +296,13 @@ const deleteArticle = async (req, res) => {
   }
 };
 
+
+
 module.exports = {
   getAllArticles,
   getArticleById,
   createArticle,
   updateArticle,
-  deleteArticle
+  deleteArticle,
+  importManyArticles
 };

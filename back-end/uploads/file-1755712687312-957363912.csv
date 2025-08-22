@@ -1,0 +1,51 @@
+name;color;size;brand;model;description;type;barcode;purchasePrice;sellingPrice;supplierId;subCategoryId;zoneId;quantity
+Collier Or 1;Beige;Unique;Zara;2024;Article tendance;SINGLE;BC1000;101.21;447.9;3;3;2;11
+Bracelet Argent 2;Beige;L;Zara;Luxe;Confort garanti;PACK;BC1001;30.18;354.03;5;5;1;74
+Bague Diamant 3;Vert;S;Chanel;2024;Édition limitée;PACK;BC1002;154.37;273.43;4;5;4;62
+Montre Luxe 4;Rouge;M;H&M;Luxe;Confort garanti;PACK;BC1003;146.55;495.23;4;1;2;98
+Boucles d'oreilles Perle 5;Vert;L;Adidas;Luxe;Confort garanti;PACK;BC1004;122.8;432.22;2;8;3;94
+Sac à main Cuir 6;Bleu;M;Prada;Sport;Best-seller;SINGLE;BC1005;48.77;444.09;5;3;5;14
+Sac Bandoulière 7;Gris;Unique;Zara;Luxe;Best-seller;SINGLE;BC1006;79.01;256.88;1;10;5;50
+Sac à dos Sport 8;Gris;M;Nike;Classic;Nouvelle collection;SINGLE;BC1007;127.97;228.64;2;2;4;65
+Pochette soirée 9;Noir;XL;Gucci;2024;Article tendance;SINGLE;BC1008;199.62;465.46;2;10;4;12
+Portefeuille cuir 10;Rose;M;Zara;2023;Nouvelle collection;PACK;BC1009;84.28;265.04;3;8;3;4
+T-shirt Blanc 11;Beige;S;Nike;Classic;Confort garanti;PACK;BC1010;48.96;350.47;2;6;4;77
+T-shirt Noir 12;Beige;L;Gucci;2024;Nouvelle collection;SINGLE;BC1011;130.14;472.18;5;5;1;1
+Chemise Slim 13;Rouge;S;Prada;2024;Confort garanti;PACK;BC1012;191.38;307.58;1;8;3;79
+Chemise Classique 14;Rose;XL;Chanel;2024;Édition limitée;SINGLE;BC1013;42.33;264.59;2;4;2;29
+Polo Sport 15;Bleu;S;Gucci;2023;Article tendance;SINGLE;BC1014;177.33;301.59;1;2;4;49
+Jean Slim 16;Blanc;L;Gucci;Luxe;Nouvelle collection;PACK;BC1015;185.97;431.98;4;4;5;3
+Jean Regular 17;Vert;Unique;Zara;Classic;Nouvelle collection;PACK;BC1016;86.92;371.88;1;5;5;32
+Jean Délavé 18;Noir;S;H&M;2024;Article tendance;PACK;BC1017;64.23;272.01;5;5;3;5
+Pantalon Chino 19;Blanc;L;Chanel;Luxe;Édition limitée;SINGLE;BC1018;139.78;207.77;2;8;5;41
+Pantalon Cargo 20;Rouge;XL;Chanel;Luxe;Article tendance;SINGLE;BC1019;84.09;492.6;1;10;4;44
+Robe Soirée 21;Rouge;S;Chanel;Sport;Article tendance;PACK;BC1020;94.51;457.41;5;1;5;58
+Robe Été 22;Rose;L;Zara;2024;Article tendance;SINGLE;BC1021;91.91;224.42;2;4;5;98
+Robe Cocktail 23;Noir;S;Nike;Classic;Nouvelle collection;SINGLE;BC1022;22.77;345.54;4;5;5;100
+Jupe Courte 24;Gris;Unique;Prada;2023;Édition limitée;PACK;BC1023;42.89;294.26;5;8;1;56
+Jupe Longue 25;Vert;L;H&M;Luxe;Confort garanti;PACK;BC1024;92.69;232.79;2;4;2;68
+Chaussures Sport 26;Rouge;S;Chanel;Sport;Confort garanti;SINGLE;BC1025;163.41;276.81;3;2;5;32
+Chaussures Ville 27;Beige;XL;H&M;Classic;Nouvelle collection;PACK;BC1026;90.67;415.69;1;1;1;94
+Sandales Été 28;Rose;S;Prada;Sport;Nouvelle collection;SINGLE;BC1027;155.42;419.97;3;2;1;93
+Bottes Cuir 29;Vert;S;Zara;Luxe;Best-seller;PACK;BC1028;185.55;218.55;5;9;3;13
+Baskets Running 30;Noir;XL;Zara;Classic;Édition limitée;PACK;BC1029;170.61;489.59;3;5;3;82
+Casquette 31;Noir;Unique;Chanel;2024;Nouvelle collection;SINGLE;BC1030;165.13;437.34;2;7;2;79
+Bonnet 32;Bleu;Unique;Zara;Luxe;Nouvelle collection;PACK;BC1031;119.3;230.42;3;1;5;33
+Écharpe Laine 33;Rose;XL;Prada;Sport;Article tendance;SINGLE;BC1032;183.81;318.62;3;10;2;57
+Ceinture Cuir 34;Rose;XL;H&M;Luxe;Édition limitée;PACK;BC1033;174.37;496.81;5;1;3;54
+Lunettes Soleil 35;Vert;XL;Nike;Sport;Confort garanti;SINGLE;BC1034;111.07;265.19;2;4;3;40
+Collier Fantaisie 36;Gris;XL;Zara;Classic;Best-seller;PACK;BC1035;130.4;231.69;2;9;3;27
+Bracelet Perles 37;Rose;Unique;Adidas;2024;Article tendance;PACK;BC1036;74.93;398.62;2;9;2;96
+Bague Argent 38;Beige;M;Adidas;Sport;Best-seller;SINGLE;BC1037;94.54;204.69;2;2;2;40
+Montre Sport 39;Bleu;XL;Zara;Luxe;Confort garanti;SINGLE;BC1038;54.84;295.01;2;2;3;93
+Boucles d'oreilles Or 40;Beige;XL;Gucci;Luxe;Article tendance;PACK;BC1039;20.25;221.69;1;5;1;4
+Sac Cabas 41;Beige;Unique;Gucci;2024;Nouvelle collection;SINGLE;BC1040;144.05;434.87;3;10;4;31
+Sac Banane 42;Blanc;M;H&M;2024;Nouvelle collection;PACK;BC1041;68.06;335.44;3;7;5;71
+Sac Voyage 43;Beige;S;Zara;Classic;Best-seller;SINGLE;BC1042;93.58;414.17;4;6;3;18
+Pochette Main 44;Rose;L;Nike;Classic;Nouvelle collection;PACK;BC1043;70.63;354.75;3;8;4;38
+Sac Shopping 45;Blanc;S;Prada;2023;Confort garanti;PACK;BC1044;133.91;384.31;1;10;1;55
+Veste Jean 46;Beige;L;Prada;Classic;Confort garanti;SINGLE;BC1045;156.87;385.78;3;4;1;11
+Veste Cuir 47;Gris;S;Chanel;2023;Édition limitée;SINGLE;BC1046;180.55;348.38;4;9;3;20
+Manteau Hiver 48;Rouge;L;Zara;Sport;Confort garanti;SINGLE;BC1047;16.04;231.01;3;9;3;0
+Pull Laine 49;Beige;XL;H&M;Classic;Confort garanti;SINGLE;BC1048;26.04;338.79;2;2;2;75
+Sweat Hoodie 50;Noir;Unique;Gucci;2024;Édition limitée;SINGLE;BC1049;140.48;442.45;2;1;3;24
