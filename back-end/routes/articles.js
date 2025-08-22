@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-const { getAllArticles, getArticleById, createArticle, updateArticle, deleteArticle } = require('../controllers/articles');
+const { getAllArticles, getArticleById, createArticle, updateArticle, deleteArticle,importManyArticles } = require('../controllers/articles');
 
 // Route to get all articles
 router.get('/getAllArticles', getAllArticles);
@@ -31,5 +31,9 @@ router.put('/updateArticle/:id', upload.single('image'), updateArticle);
 
 // Route to delete an article
 router.delete('/deleteArticle/:id', deleteArticle);
+
+// Import en masse depuis CSV
+router.post("/importMany", upload.single("file"), importManyArticles);
+
 
 module.exports = router;
